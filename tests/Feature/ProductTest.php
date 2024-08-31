@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use App\Models\Product;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\ProductSeeder;
@@ -40,4 +41,13 @@ class ProductTest extends TestCase
         $response->assertSeeText("meta");
         $response->assertSeeText("data");
     }
+
+    public function testProductAddResource() {
+        $this->seed([CategorySeeder::class, ProductSeeder::class]);
+        $product = Product::first();
+        self::assertNotNull($product);
+        $response = $this->get("/api/products-debug/$product->id");
+        $response->assertSeeText("author");   
+    }
 }
+  

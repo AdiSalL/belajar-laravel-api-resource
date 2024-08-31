@@ -1,17 +1,15 @@
 <?php
 
 namespace App\Http\Resources;
-use App\Models\Product;
+
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-/**
- * @mixin Product
- */
 
-class ProductResource extends JsonResource
+class ProductDebugResource extends JsonResource
 {
-    public static $wrap = "value";
-
+    public $additional = [
+        "author" => "Adi Salafudin"
+    ];
     /**
      * Transform the resource into an array.
      *
@@ -22,11 +20,9 @@ class ProductResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
-            "category" => new CategorySimpleResource($this->category),
             "price" => $this->price,
-            "stock" => $this->stock,
-            "created_at" => $this->created_at,
-            "updated_at" => $this->updated_at
+            
         ];
+        
     }
 }
