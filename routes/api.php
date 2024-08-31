@@ -38,8 +38,14 @@ Route::get("/categories-custom", function () {
     return new CategoryCollection($categories);
 });
 
-Route::get("/products/{id}", function($id) {
+Route::get("/produ cts/{id}", function($id) {
     $product = Product::find($id);
     return new ProductResource($product);
 });
+
+Route::get("/products-paging", function(Request $request) {
+    $page = $request->get("page", 1);
+    $product = Product::paginate(perPage: 2, page: $page);
+    return ProductResource::collection($product);
+}); 
 

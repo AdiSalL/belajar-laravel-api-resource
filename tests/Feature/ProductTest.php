@@ -15,7 +15,7 @@ class ProductTest extends TestCase
         $this->seed([CategorySeeder::class, ProductSeeder::class]);
         $product = Product::first();
 
-        $this->get("/api/products/$product->id")
+        $this->get("/api/products-paging")
         ->assertStatus(200)
         ->assertJson([
             "value" => [
@@ -30,5 +30,14 @@ class ProductTest extends TestCase
                 
             ]
         ]); 
+    }
+
+    public function testProductPaging() {
+        $this->seed([CategorySeeder::class, ProductSeeder::class]);
+        $response = $this->get("/api/products-paging");
+        $response->assertStatus(200);
+        $response->assertSeeText("link");
+        $response->assertSeeText("meta");
+        $response->assertSeeText("data");
     }
 }
