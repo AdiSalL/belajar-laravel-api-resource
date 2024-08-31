@@ -47,7 +47,18 @@ class ProductTest extends TestCase
         $product = Product::first();
         self::assertNotNull($product);
         $response = $this->get("/api/products-debug/$product->id");
-        $response->assertSeeText("author");   
+        $response->assertSeeText("author"); 
+        $response->assertJson([
+            "author" => "Adi Salafudin",
+            "date" => now()->toDateString(),
+            "data" => [
+                "id" => $product->id,
+                "name" => $product->name,
+                "price" => $product->price
+            ]
+        ]);  
+        $response->assertSeeText("date");
+        
     }
 }
   
