@@ -39,10 +39,17 @@ Route::get("/categories-custom", function () {
     return new CategoryCollection($categories);
 });
 
-Route::get("/produ cts/{id}", function($id) {
+Route::get("/products/{id}", function($id) {
     $product = Product::find($id);
+    $product->load("category");
     return new ProductResource($product);
 });
+
+Route::get("/products", function() {
+    $product = Product::all();
+
+    return ProductResource::collection($product);
+}); 
 
 Route::get("/products-paging", function(Request $request) {
     $page = $request->get("page", 1);

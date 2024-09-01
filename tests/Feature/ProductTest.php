@@ -54,6 +54,7 @@ class ProductTest extends TestCase
             "data" => [
                 "id" => $product->id,
                 "name" => $product->name,
+                "is_expensive" => $product->price < 1000, 
                 "price" => $product->price
             ]
         ]);  
