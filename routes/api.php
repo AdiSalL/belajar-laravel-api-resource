@@ -2,6 +2,7 @@
 
 use App\Http\Resources\CategoryCollection;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductDebugResource;
 use App\Http\Resources\ProductResource;
 use App\Models\Category;
@@ -60,5 +61,11 @@ Route::get("/products-paging", function(Request $request) {
 Route::get("/products-debug/{id}", function ($id) {
     $product = Product::find($id);
     return new ProductDebugResource($product);
+});
+
+Route::get("/products-collection", function() {
+    $product = Product::all();
+    $products =  new ProductCollection($product);
+    return view("welcome", ["products" => $products]);
 });
 
